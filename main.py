@@ -7,9 +7,9 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEv
 import psycopg2
 import pickle
 import os.path
-# # from googleapiclient.discovery import build
-# # from google_auth_oauthlib.flow import InstalledAppFlow
-# # from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 from bs4 import BeautifulSoup
 import re
 import logging
