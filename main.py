@@ -56,7 +56,7 @@ def callback():
 # botにメッセージを送ったときの処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    received_text = event.message.text
+    #received_text = event.message.text
     
     # # Call the function with the received text as an argument
     # output = get_settleInfo(received_text)
