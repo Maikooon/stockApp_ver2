@@ -6,6 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
+from add_calander import get_settleInfo, transformStyle, saveFile, main
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -55,6 +56,20 @@ def callback():
 # botにメッセージを送ったときの処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    received_text = event.message.text
+    
+    # Call the function with the received text as an argument
+    output = get_settleInfo(received_text)
+    
+    # Transform the style
+    result = transformStyle(output)
+    
+    # Save the result to a file
+    saveFile(result)
+
+    # Call the main function
+    main()
+    
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
