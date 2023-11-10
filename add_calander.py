@@ -10,7 +10,7 @@ import re
 import logging
 
 source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
-#CODE = "6758"
+CODE = "6758"
 
 
 # 決算日取得関数 
