@@ -9,10 +9,14 @@ import psycopg2
 
 
 # サンプルコードの11~14行目を以下のように書き換え
-LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
-DATABASE_URL = os.environ["DATABASE_URL"]
-HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
+# LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+# LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+# DATABASE_URL = os.environ["DATABASE_URL"]
+# HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
+LINE_CHANNEL_ACCESS_TOKEN = "jBt7isMYFvFpW8Xw7CGaZXg8W/IyI+5q17yF+mk3PZxuvCCuju9JKy0GYrSnc1HLSf1zXvrEEfEhjqqK8lf0AG+r/NK4kk7qWtjDLE+o8YXfD9dpXbrKOXtZBRuCNuLAEJPnvBCCihJjowH+joxUhQdB04t89/1O/w1cDnyilFU="
+LINE_CHANNEL_SECRET = "4df323f1a72448fd99f5f1587d936001"
+DATABASE_URL = "postgres://ukkvjbsyupdoau:753eed248f3b1e40fd497edd77e76b7159e2d946e8307ab8bfcf90ab1c80184c@ec2-54-156-8-21.compute-1.amazonaws.com:5432/d57qcmlos2bntq"
+HEROKU_APP_NAME = "stock-calander"
 
 
 app = Flask(__name__)
@@ -26,6 +30,7 @@ header = {
     "Authorization": "Bearer " + LINE_CHANNEL_ACCESS_TOKEN
 }
 
+
 @app.route("/")
 def hello_world():
     return "hello world!"
@@ -34,6 +39,7 @@ def hello_world():
 # アプリにPOSTがあったときの処理
 @app.route("/callback", methods=["POST"])
 def callback():
+    print("mm")
     # get X-Line-Signature header value
     signature = request.headers["X-Line-Signature"]
     # get request body as text
@@ -132,12 +138,12 @@ def handle_unfollow(event):
 
 
 # データベースに登録されたLINEアカウントからランダムでひとりにプッシュ通知
-def push():
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute('SELECT * FROM users ORDER BY random() LIMIT 1')
-            (to_user,) = cur.fetchone()
-    line_bot_api.multicast([to_user], TextSendMessage(text="今日もお疲れさん!!"))
+#def push():
+    # with get_connection() as conn:
+    #     with conn.cursor() as cur:
+    #         cur.execute('SELECT * FROM users ORDER BY random() LIMIT 1')
+    #         (to_user,) = cur.fetchone()
+    #line_bot_api.multicast([to_user], TextSendMessage(text="今日もお疲れさん!!"))
 
 
 # アプリの起動
@@ -149,7 +155,8 @@ if __name__ == "__main__":
             cur.execute('CREATE TABLE IF NOT EXISTS users(user_id TEXT)')
     
     # LINE botをフォローしているアカウントのうちランダムで一人にプッシュ通知
-    push()
+    #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+    handle_message()
 ### End
