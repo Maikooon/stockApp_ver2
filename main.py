@@ -6,6 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
+import find_stock
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -56,6 +57,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     code = event.message.text
+    settle_info = get_settleInfo(code)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
@@ -107,4 +109,5 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
+    
 ### End
