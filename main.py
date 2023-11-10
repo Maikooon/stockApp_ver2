@@ -59,6 +59,7 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
     print("返信完了!!\ntext:", event.message.text)
+    return event.message.text
 
 
 # データベース接続
