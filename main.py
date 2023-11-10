@@ -5,6 +5,16 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEvent, UnfollowEvent
 import psycopg2
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+import requests
+from bs4 import BeautifulSoup
+import re
+import logging
+
 
 
 # サンプルコードの11~14行目を以下のように書き換え
