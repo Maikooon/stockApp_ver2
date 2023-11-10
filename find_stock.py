@@ -48,8 +48,8 @@ def transformStyle(inputText):
     return result
 
 
-if __name__ == '__main__':
-    output = get_settleInfo(CODE)
-    result = transformStyle(output)
-    with open('output.txt', 'w') as f:
-        f.write(result)
+# if __name__ == '__main__':
+#     output = get_settleInfo(CODE)
+#     result = transformStyle(output)
+#     with open('output.txt', 'w') as f:
+#         f.write(result)

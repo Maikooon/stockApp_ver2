@@ -60,11 +60,9 @@ def handle_message(event):
         event.reply_token,
         #ここで関数を呼び出す
         TextSendMessage(text=event.message.text),
-        output = get_settleInfo(event.message.text)
-        result = transformStyle(output)pip install beautifulsoup4
+        # output = get_settleInfo(event.message.text)
+        # result = transformStyle(output)pip install beautifulsoup4
     )
-    
-    
     print("返信完了!!\ntext:", event.message.text)
 
 
