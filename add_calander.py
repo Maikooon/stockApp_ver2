@@ -143,8 +143,8 @@ def main():
         print(event['id'])
 
 
-if __name__ == '__main__':
-    output = get_settleInfo(event.message.text)
-    result = transformStyle(output)
-    saveFile(result)
-    main()
+# if __name__ == '__main__':
+#     output = get_settleInfo(event.message.text)
+#     result = transformStyle(output)
+#     saveFile(result)
+#     main()
