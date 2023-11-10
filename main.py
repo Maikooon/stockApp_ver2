@@ -64,20 +64,20 @@ def handle_message(event):
         )
     #ここから変更を加えた
     # Get CODE from user's input
-        CODE = event.message.text
+        # CODE = event.message.text
 
-        # Fetch settleInfo based on CODE
-        logging.debug('Fetching settleInfo for CODE: ' + CODE)
-        output = find_stock.get_settleInfo(CODE)
+        # # Fetch settleInfo based on CODE
+        # logging.debug('Fetching settleInfo for CODE: ' + CODE)
+        # output = find_stock.get_settleInfo(CODE)
 
-        # Transform the style (assuming this is a function you have)
-        result = find_stock.transformStyle(output)
+        # # Transform the style (assuming this is a function you have)
+        # result = find_stock.transformStyle(output)
 
-        # Save result to a file
-        with open('output.txt', 'w') as f:
-            f.write(result)
+        # # Save result to a file
+        # with open('output.txt', 'w') as f:
+        #     f.write(result)
 
-        logging.debug('Process completed successfully.')
+        # logging.debug('Process completed successfully.')
         
     except Exception as e:
         logging.error('Error in handling message: ' + str(e))
