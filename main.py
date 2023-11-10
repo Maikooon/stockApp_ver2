@@ -10,9 +10,9 @@ import os.path
 # # from googleapiclient.discovery import build
 # # from google_auth_oauthlib.flow import InstalledAppFlow
 # # from google.auth.transport.requests import Request
-# from bs4 import BeautifulSoup
-# import re
-# import logging
+from bs4 import BeautifulSoup
+import re
+import logging
 
 
 
