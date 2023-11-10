@@ -1,3 +1,4 @@
+from __future__ import print_function
 from flask import Flask, request, abort
 import requests, os
 from linebot import LineBotApi, WebhookHandler
