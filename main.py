@@ -5,8 +5,8 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEvent, UnfollowEvent
 import psycopg2
-# import pickle
-# import os.path
+import pickle
+import os.path
 # # from googleapiclient.discovery import build
 # # from google_auth_oauthlib.flow import InstalledAppFlow
 # # from google.auth.transport.requests import Request
