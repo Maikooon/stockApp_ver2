@@ -20,7 +20,7 @@ HEROKU_APP_NAME = "stock-calander"
 
 
 app = Flask(__name__)
-Heroku = "https://{}.herokuapp.com/".format(HEROKU_APP_NAME)
+Heroku = "https://{}-d52dab965779.herokuapp.com/".format(HEROKU_APP_NAME)
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
@@ -157,6 +157,6 @@ if __name__ == "__main__":
     # LINE botをフォローしているアカウントのうちランダムで一人にプッシュ通知
     #push()
     port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
 ### End
