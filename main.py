@@ -6,6 +6,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
+import add_calander
+#ここに入れるとエラーになってしまう、なんでmm
 
 
 # サンプルコードの11~14行目を以下のように書き換え
