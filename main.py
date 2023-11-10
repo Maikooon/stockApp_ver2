@@ -6,7 +6,6 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
-import find_stock
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -58,11 +57,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        #ここで関数を呼び出す
-        TextSendMessage(text=event.message.text),
-        # output = get_settleInfo(event.message.text)
-        # result = transformStyle(output)pip install beautifulsoup4
-    )
+        TextSendMessage(text=event.message.text))
     print("返信完了!!\ntext:", event.message.text)
 
 
@@ -105,6 +100,9 @@ if __name__ == "__main__":
         with conn.cursor() as cur:
             conn.autocommit = True
             cur.execute('CREATE TABLE IF NOT EXISTS users(user_id TEXT)')
+    
+    # LINE botをフォローしているアカウントのうちランダムで一人にプッシュ通知
+    #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
