@@ -6,7 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
-import add_calander
+
 # aoutrここに入れるとエラーになってしまう、なんでmm
 
 
