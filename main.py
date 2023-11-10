@@ -58,17 +58,17 @@ def callback():
 def handle_message(event):
     received_text = event.message.text
     
-    # Call the function with the received text as an argument
-    output = get_settleInfo(received_text)
+    # # Call the function with the received text as an argument
+    # output = get_settleInfo(received_text)
     
-    # Transform the style
-    result = transformStyle(output)
+    # # Transform the style
+    # result = transformStyle(output)
     
-    # Save the result to a file
-    saveFile(result)
+    # # Save the result to a file
+    # saveFile(result)
 
-    # Call the main function
-    main()
+    # # Call the main function
+    # main()
     
     line_bot_api.reply_message(
         event.reply_token,
