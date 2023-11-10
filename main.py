@@ -239,7 +239,7 @@ def handle_message(event):
     output = get_settleInfo(received_text)
     
     # Transform the style
-    result = transformStyle(output)
+    #result = transformStyle(output)
     
     # # Save the result to a file
     #saveFile(result)
