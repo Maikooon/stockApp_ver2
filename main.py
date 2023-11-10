@@ -109,6 +109,6 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port, debug=True)
     #ここでは、株式の情報を表示したい
     handle_message()
-    get_settleInfo(handle_message)
+    get_settleInfo(handle_message())
     
 ### End
