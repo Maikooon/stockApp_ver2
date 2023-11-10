@@ -246,7 +246,7 @@ def handle_message(event):
     saveFile(result)
 
     # # Call the main function
-    # main()
+    main()
 
     line_bot_api.reply_message(
         event.reply_token,
