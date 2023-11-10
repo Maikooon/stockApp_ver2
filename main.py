@@ -6,6 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
+import find_stock
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -39,7 +40,6 @@ def hello_world():
 # アプリにPOSTがあったときの処理
 @app.route("/callback", methods=["POST"])
 def callback():
-    print("aa")
     # get X-Line-Signature header value
     signature = request.headers["X-Line-Signature"]
     # get request body as text
@@ -58,51 +58,14 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        #ここで関数を呼び出す
+        TextSendMessage(text=event.message.text),
+        output = get_settleInfo(event.message.text)
+        result = transformStyle(output)pip install beautifulsoup4
+    )
+    
+    
     print("返信完了!!\ntext:", event.message.text)
-
-
-# botに画像を送ったときの処理
-# @handler.add(MessageEvent, message=ImageMessage)
-# def handle_image(event):
-#     print("画像を受信")
-#     message_id = event.message.id
-#     image_path = getImageLine(message_id)
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         ImageSendMessage(
-#             original_content_url = Heroku + image_path["main"],
-#             preview_image_url = Heroku + image_path["preview"]
-#         )
-#     )
-#     print("画像の送信完了!!")
-
-
-# 受信メッセージに添付された画像ファイルを取得
-# def getImageLine(id):
-#     line_url = f"https://api-data.line.me/v2/bot/message/{id}/content"
-#     result = requests.get(line_url, headers=header)
-#     print(result)
-
-#     img = Image.open(BytesIO(result.content))
-#     w, h = img.size
-#     if w >= h:
-#         ratio_main, ratio_preview = w / 1024, w / 240
-#     else:
-#         ratio_main, ratio_preview = h / 1024, h / 240
-
-#     width_main, width_preview = int(w // ratio_main), int(w // ratio_preview)
-#     height_main, height_preview = int(h // ratio_main), int(h // ratio_preview)
-
-#     img_main = img.resize((width_main, height_main))
-#     img_preview = img.resize((width_preview, height_preview))
-#     image_path = {
-#         "main": f"static/images/image_{id}_main.jpg",
-#         "preview": f"static/images/image_{id}_preview.jpg"
-#     }
-#     img_main.save(image_path["main"])
-#     img_preview.save(image_path["preview"])
-#     return image_path
 
 
 # データベース接続
@@ -137,15 +100,6 @@ def handle_unfollow(event):
     print("userIdの削除OK!!")
 
 
-# データベースに登録されたLINEアカウントからランダムでひとりにプッシュ通知
-#def push():
-    # with get_connection() as conn:
-    #     with conn.cursor() as cur:
-    #         cur.execute('SELECT * FROM users ORDER BY random() LIMIT 1')
-    #         (to_user,) = cur.fetchone()
-    #line_bot_api.multicast([to_user], TextSendMessage(text="今日もお疲れさん!!"))
-
-
 # アプリの起動
 if __name__ == "__main__":
     # 初回のみデータベースのテーブル作成
@@ -153,9 +107,6 @@ if __name__ == "__main__":
         with conn.cursor() as cur:
             conn.autocommit = True
             cur.execute('CREATE TABLE IF NOT EXISTS users(user_id TEXT)')
-    
-    # LINE botをフォローしているアカウントのうちランダムで一人にプッシュ通知
-    #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
