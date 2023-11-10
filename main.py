@@ -111,8 +111,8 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
-    output = get_settleInfo(handle_message())
-    result = transformStyle(output)
-    saveFile(result)
-    main()
+    # output = get_settleInfo(handle_message())
+    # result = transformStyle(output)
+    # saveFile(result)
+    # main()
 ### End
