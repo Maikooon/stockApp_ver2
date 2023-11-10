@@ -7,6 +7,10 @@ from PIL import Image
 from io import BytesIO
 import psycopg2
 import find_stock
+import requests
+from bs4 import BeautifulSoup
+import re
+import logging
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -36,6 +40,29 @@ header = {
 def hello_world():
     return "hello world!"
 
+
+def get_settleInfo(CODE):
+    # クローリング
+    try:
+        logging.debug('read web data cord = ' + CODE)  # logging
+        r = requests.get(source + CODE)
+        
+    except ValueError:
+        logging.debug('read web data ---> Exception Error')  # vlogging
+        return None, 'Exception error: access failed'
+    
+    # スクレイピング
+    soup = BeautifulSoup(r.content, "html.parser")
+    settleInfo = soup.find("div", class_="header_main").text
+    settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
+    settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
+    settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
+    logging.debug('settleInfo result = ' + settleInfo)  # logging
+
+    if not settleInfo:
+        settleInfo = 'not found'
+
+    return settleInfo
 
 # アプリにPOSTがあったときの処理
 @app.route("/callback", methods=["POST"])
@@ -67,6 +94,9 @@ def handle_message(event):
 # データベース接続
 def get_connection():
     return psycopg2.connect(DATABASE_URL, sslmode="require")
+
+
+source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode=' 
 
 
 # botがフォローされたときの処理
