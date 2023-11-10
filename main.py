@@ -6,19 +6,17 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
-import find_stock
-import logging
 
 
 # サンプルコードの11~14行目を以下のように書き換え
-# LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-# LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
-# DATABASE_URL = os.environ["DATABASE_URL"]
-# HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
-LINE_CHANNEL_ACCESS_TOKEN = "jBt7isMYFvFpW8Xw7CGaZXg8W/IyI+5q17yF+mk3PZxuvCCuju9JKy0GYrSnc1HLSf1zXvrEEfEhjqqK8lf0AG+r/NK4kk7qWtjDLE+o8YXfD9dpXbrKOXtZBRuCNuLAEJPnvBCCihJjowH+joxUhQdB04t89/1O/w1cDnyilFU="
-LINE_CHANNEL_SECRET = "4df323f1a72448fd99f5f1587d936001"
-DATABASE_URL = "postgres://ukkvjbsyupdoau:753eed248f3b1e40fd497edd77e76b7159e2d946e8307ab8bfcf90ab1c80184c@ec2-54-156-8-21.compute-1.amazonaws.com:5432/d57qcmlos2bntq"
-HEROKU_APP_NAME = "stock-calander"
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+DATABASE_URL = os.environ["DATABASE_URL"]
+HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
+# LINE_CHANNEL_ACCESS_TOKEN = "jBt7isMYFvFpW8Xw7CGaZXg8W/IyI+5q17yF+mk3PZxuvCCuju9JKy0GYrSnc1HLSf1zXvrEEfEhjqqK8lf0AG+r/NK4kk7qWtjDLE+o8YXfD9dpXbrKOXtZBRuCNuLAEJPnvBCCihJjowH+joxUhQdB04t89/1O/w1cDnyilFU="
+# LINE_CHANNEL_SECRET = "4df323f1a72448fd99f5f1587d936001"
+# DATABASE_URL = "postgres://ukkvjbsyupdoau:753eed248f3b1e40fd497edd77e76b7159e2d946e8307ab8bfcf90ab1c80184c@ec2-54-156-8-21.compute-1.amazonaws.com:5432/d57qcmlos2bntq"
+# HEROKU_APP_NAME = "stock-calander"
 
 
 app = Flask(__name__)
@@ -54,38 +52,7 @@ def callback():
     return "OK"
 
 
-# # botにメッセージを送ったときの処理
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-#     # try:
-#     line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text=event.message.text)
-#     )
-#     #ここから変更を加えた
-#     # Get CODE from user's input
-#         # CODE = event.message.text
-
-#         # # Fetch settleInfo based on CODE
-#         # logging.debug('Fetching settleInfo for CODE: ' + CODE)
-#         # output = find_stock.get_settleInfo(CODE)
-
-#         # # Transform the style (assuming this is a function you have)
-#         # result = find_stock.transformStyle(output)
-
-#         # # Save result to a file
-#         # with open('output.txt', 'w') as f:
-#         #     f.write(result)
-
-#         # logging.debug('Process completed successfully.')
-         
-#     # except Exception as e:
-#     #     logging.error('Error in handling message: ' + str(e))
-
-#     print("返信完了!!\ntext:", event.message.text)
-
-
-# # botにメッセージを送ったときの処理
+# botにメッセージを送ったときの処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
@@ -138,4 +105,5 @@ if __name__ == "__main__":
     #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+    handle_message()
 ### End
