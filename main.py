@@ -6,22 +6,17 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
-import find_stock
-import requests
-from bs4 import BeautifulSoup
-import re
-import logging
 
 
 # サンプルコードの11~14行目を以下のように書き換え
-#LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-# LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
-# DATABASE_URL = os.environ["DATABASE_URL"]
-# HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
-LINE_CHANNEL_ACCESS_TOKEN = "jBt7isMYFvFpW8Xw7CGaZXg8W/IyI+5q17yF+mk3PZxuvCCuju9JKy0GYrSnc1HLSf1zXvrEEfEhjqqK8lf0AG+r/NK4kk7qWtjDLE+o8YXfD9dpXbrKOXtZBRuCNuLAEJPnvBCCihJjowH+joxUhQdB04t89/1O/w1cDnyilFU="
-LINE_CHANNEL_SECRET = "4df323f1a72448fd99f5f1587d936001"
-DATABASE_URL = "postgres://ukkvjbsyupdoau:753eed248f3b1e40fd497edd77e76b7159e2d946e8307ab8bfcf90ab1c80184c@ec2-54-156-8-21.compute-1.amazonaws.com:5432/d57qcmlos2bntq"
-HEROKU_APP_NAME = "stock-calander"
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+DATABASE_URL = os.environ["DATABASE_URL"]
+HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
+# LINE_CHANNEL_ACCESS_TOKEN = "jBt7isMYFvFpW8Xw7CGaZXg8W/IyI+5q17yF+mk3PZxuvCCuju9JKy0GYrSnc1HLSf1zXvrEEfEhjqqK8lf0AG+r/NK4kk7qWtjDLE+o8YXfD9dpXbrKOXtZBRuCNuLAEJPnvBCCihJjowH+joxUhQdB04t89/1O/w1cDnyilFU="
+# LINE_CHANNEL_SECRET = "4df323f1a72448fd99f5f1587d936001"
+# DATABASE_URL = "postgres://ukkvjbsyupdoau:753eed248f3b1e40fd497edd77e76b7159e2d946e8307ab8bfcf90ab1c80184c@ec2-54-156-8-21.compute-1.amazonaws.com:5432/d57qcmlos2bntq"
+# HEROKU_APP_NAME = "stock-calander"
 
 
 app = Flask(__name__)
@@ -40,29 +35,6 @@ header = {
 def hello_world():
     return "hello world!"
 
-
-def get_settleInfo(CODE):
-    # クローリング
-    try:
-        logging.debug('read web data cord = ' + CODE)  # logging
-        r = requests.get(source + CODE)
-        
-    except ValueError:
-        logging.debug('read web data ---> Exception Error')  # vlogging
-        return None, 'Exception error: access failed'
-    
-    # スクレイピング
-    soup = BeautifulSoup(r.content, "html.parser")
-    settleInfo = soup.find("div", class_="header_main").text
-    settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
-    settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
-    settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
-    logging.debug('settleInfo result = ' + settleInfo)  # logging
-
-    if not settleInfo:
-        settleInfo = 'not found'
-
-    return settleInfo
 
 # アプリにPOSTがあったときの処理
 @app.route("/callback", methods=["POST"])
@@ -83,8 +55,6 @@ def callback():
 # botにメッセージを送ったときの処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    #code = event.message.text
-    #get_settleInfo(code)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
@@ -94,9 +64,6 @@ def handle_message(event):
 # データベース接続
 def get_connection():
     return psycopg2.connect(DATABASE_URL, sslmode="require")
-
-
-source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode=' 
 
 
 # botがフォローされたときの処理
@@ -139,5 +106,4 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
-    
 ### End
