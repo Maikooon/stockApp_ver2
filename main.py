@@ -60,13 +60,6 @@ def callback():
     return "OK"
 
 
-# botにメッセージを送ったときの処理
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
-    print("返信完了!!\ntext:", event.message.text)
 
 
 # データベース接続
@@ -235,6 +228,31 @@ def main():
         print(event['id'])
 
 
+
+
+# botにメッセージを送ったときの処理
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    received_text = event.message.text
+    
+    # Call the function with the received text as an argument
+    output = get_settleInfo(received_text)
+    
+    # Transform the style
+    result = transformStyle(output)
+    
+    # Save the result to a file
+    saveFile(result)
+
+    # Call the main function
+    main()
+
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text))
+    print("返信完了!!\ntext:", event.message.text)
+    
+    
 # アプリの起動
 if __name__ == "__main__":
     # 初回のみデータベースのテーブル作成
