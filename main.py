@@ -13,7 +13,7 @@ from google.auth.transport.requests import Request
 from bs4 import BeautifulSoup
 import re
 import logging
-from add_calander import get_settleInfo, transformStyle, saveFile,main
+from add_calander import get_settleInfo, transformStyle, saveFile, main
 
 
 # サンプルコードの11~14行目を以下のように書き換え
