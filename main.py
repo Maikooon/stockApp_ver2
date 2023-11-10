@@ -53,10 +53,12 @@ def callback():
 
 
 # botにメッセージを送ったときの処理
+# おうむ返し用のテキスト
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
+        #刺繍的にテキストで返答されるので、帰りちがテキストである変数を入れればいいのではないか？？
         TextSendMessage(text=event.message.text))
     print("返信完了!!\ntext:", event.message.text)
 
