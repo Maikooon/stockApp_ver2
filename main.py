@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 import psycopg2
 import find_stock
+import logging
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -56,15 +57,31 @@ def callback():
 # botにメッセージを送ったときの処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
+    try:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=event.message.text)
+        )
     #ここから変更を加えた
-    CODE = event.message.text
-    output = find_stock.get_settleInfo(CODE)
-    result = find_stock.transformStyle(output)
-    with open('output.txt', 'w') as f:
-        f.write(result)
+    # Get CODE from user's input
+        CODE = event.message.text
+
+        # Fetch settleInfo based on CODE
+        logging.debug('Fetching settleInfo for CODE: ' + CODE)
+        output = find_stock.get_settleInfo(CODE)
+
+        # Transform the style (assuming this is a function you have)
+        result = find_stock.transformStyle(output)
+
+        # Save result to a file
+        with open('output.txt', 'w') as f:
+            f.write(result)
+
+        logging.debug('Process completed successfully.')
+        
+    except Exception as e:
+        logging.error('Error in handling message: ' + str(e))
+
     print("返信完了!!\ntext:", event.message.text)
 
 
