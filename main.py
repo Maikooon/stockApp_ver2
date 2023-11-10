@@ -6,7 +6,6 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
-from add_calander import get_settleInfo, transformStyle, saveFile, readSchedule
 
 
 # サンプルコードの11~14行目を以下のように書き換え
