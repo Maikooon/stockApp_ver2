@@ -101,6 +101,43 @@ def handle_unfollow(event):
     print("userIdの削除OK!!")
 
 
+# ここから追加する
+source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
+CODE = "6758"
+
+
+# 決算日取得関数 
+def get_settleInfo(CODE):
+    # クローリング
+    try:
+        logging.debug('read web data cord = ' + CODE)  # logging
+        r = requests.get(source + CODE)
+        
+    except ValueError:
+        logging.debug('read web data ---> Exception Error')  # vlogging
+        return None, 'Exception error: access failed'
+    
+    # スクレイピング
+    soup = BeautifulSoup(r.content, "html.parser")
+    settleInfo = soup.find("div", class_="header_main").text
+    settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
+    settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
+    settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
+    logging.debug('settleInfo result = ' + settleInfo)  # logging
+
+    if not settleInfo:
+        settleInfo = 'not found'
+
+    return settleInfo
+
+
+
+
+
+
+
+
+
 # アプリの起動
 if __name__ == "__main__":
     # 初回のみデータベースのテーブル作成
