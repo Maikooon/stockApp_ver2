@@ -6,6 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
+import find_stock
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -58,6 +59,12 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+    #ここから変更を加えた
+    CODE = event.message.text
+    output = find_stock.get_settleInfo(CODE)
+    result = find_stock.transformStyle(output)
+    with open('output.txt', 'w') as f:
+        f.write(result)
     print("返信完了!!\ntext:", event.message.text)
 
 
