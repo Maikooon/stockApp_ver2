@@ -13,7 +13,7 @@ from google.auth.transport.requests import Request
 from bs4 import BeautifulSoup
 import re
 import logging
-
+from add_calander import get_settleInfo, transformStyle, saveFile
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -99,29 +99,29 @@ source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
 CODE = "6758"
 
 
-# 決算日取得関数 
-def get_settleInfo(CODE):
-    # クローリング
-    try:
-        logging.debug('read web data cord = ' + CODE)  # logging
-        r = requests.get(source + CODE)
+# # 決算日取得関数 
+# def get_settleInfo(CODE):
+#     # クローリング
+#     try:
+#         logging.debug('read web data cord = ' + CODE)  # logging
+#         r = requests.get(source + CODE)
         
-    except ValueError:
-        logging.debug('read web data ---> Exception Error')  # vlogging
-        return None, 'Exception error: access failed'
+#     except ValueError:
+#         logging.debug('read web data ---> Exception Error')  # vlogging
+#         return None, 'Exception error: access failed'
     
-    # スクレイピング
-    soup = BeautifulSoup(r.content, "html.parser")
-    settleInfo = soup.find("div", class_="header_main").text
-    settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
-    settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
-    settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
-    logging.debug('settleInfo result = ' + settleInfo)  # logging
+#     # スクレイピング
+#     soup = BeautifulSoup(r.content, "html.parser")
+#     settleInfo = soup.find("div", class_="header_main").text
+#     settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
+#     settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
+#     settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
+#     logging.debug('settleInfo result = ' + settleInfo)  # logging
 
-    if not settleInfo:
-        settleInfo = 'not found'
+#     if not settleInfo:
+#         settleInfo = 'not found'
 
-    return settleInfo
+#     return settleInfo
 
 
 # できすと形式の変更
@@ -248,6 +248,7 @@ def handle_message(event):
     # # Call the main function
     main()
 
+#ここからしたは変えない
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
