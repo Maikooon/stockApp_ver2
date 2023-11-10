@@ -6,6 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 import psycopg2
+from add_calander import get_settleInfo
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -106,5 +107,8 @@ if __name__ == "__main__":
     #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+    #ここでは、株式の情報を表示したい
     handle_message()
+    get_settleInfo(handle_message)
+    
 ### End
