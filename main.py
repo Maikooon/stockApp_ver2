@@ -2,10 +2,11 @@ from flask import Flask, request, abort
 import requests, os
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, FollowEvent, UnfollowEvent
-from PIL import Image
-from io import BytesIO
+from linebot.models import MessageEvent, TextMessage, TextSendMessage,  ImageSendMessage, FollowEvent, UnfollowEvent
+# from PIL import Image
+# from io import BytesIO
 import psycopg2
+from add_calander import get_settleInfo, transformStyle, saveFile, main
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -24,6 +25,7 @@ Heroku = "https://{}-d52dab965779.herokuapp.com/".format(HEROKU_APP_NAME)
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
+CODE = 0
 
 header = {
     "Content_Type": "application/json",
@@ -61,6 +63,7 @@ def handle_message(event):
         #刺繍的にテキストで返答されるので、帰りちがテキストである変数を入れればいいのではないか？？
         TextSendMessage(text=event.message.text))
     print("返信完了!!\ntext:", event.message.text)
+    return event.message.text
 
 
 # データベース接続
@@ -108,4 +111,8 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message()
+    output = get_settleInfo(handle_message())
+    result = transformStyle(output)
+    saveFile(result)
+    main()
 ### End
