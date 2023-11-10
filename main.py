@@ -123,6 +123,7 @@ def get_settleInfo(CODE):
 
     return settleInfo
 
+
 # できすと形式の変更
 def transformStyle(inputText):
     parts = inputText.split(',')
@@ -238,8 +239,8 @@ def handle_message(event):
     # Call the function with the received text as an argument
     output = get_settleInfo(received_text)
     
-    # Transform the style
-    #result = transformStyle(output)
+    # Transform the style  ここかも？？？？？
+    result = transformStyle(output)
     
     # # Save the result to a file
     #saveFile(result)
