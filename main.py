@@ -243,7 +243,7 @@ def handle_message(event):
     result = transformStyle(output)
     
     # # Save the result to a file
-    #saveFile(result)
+    saveFile(result)
 
     # # Call the main function
     # main()
