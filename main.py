@@ -114,6 +114,7 @@ def handle_message(event):
         reply_text = "証券コードを入力してください"
     elif received_text == "yes":
         # "Yes" が入力された場合
+        print(received_text)
         output = get_settleInfo(received_text) 
         result = transformStyle(output)
         saveFile(result, output_path)
