@@ -96,14 +96,15 @@ def handle_message(event):
     result = transformStyle(output)
     if result is not None and result.startswith("エラー"):
         print(result)
-        return 
-    saveFile(result, output_path)
-    readSchedule()
-    main()
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
-    print("返信完了!!\ntext:", event.message.text)
+        
+    else:
+        saveFile(result, output_path)
+        readSchedule()
+        main()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=event.message.text))
+        print("返信完了!!\ntext:", event.message.text)
 
 
 # newversion
