@@ -5,7 +5,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEvent, UnfollowEvent
 import psycopg2
-from add_calander import get_settleInfo, transformStyle, saveFile, main
+from add_calander import get_settleInfo, transformStyle, saveFile, readSchedule, main
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -100,9 +100,10 @@ def handle_message(event):
     
     # # Save the result to a file
     saveFile(result, received_text)
-
+    readSchedule()
     # # Call the main function
     main()
+    
 #ここからしたは変えない
     line_bot_api.reply_message(
         event.reply_token,
