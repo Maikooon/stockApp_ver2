@@ -93,8 +93,8 @@ def handle_unfollow(event):
 
 
 # ここから追加する
-source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
-CODE = "6758"
+# source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
+# CODE = "6758"
 
 
 # ファイルへの保存
@@ -132,7 +132,7 @@ def handle_message(event):
     result = transformStyle(output)
     
     # # Save the result to a file
-    saveFile(result, CODE)
+    saveFile(result, received_text)
 
     # # Call the main function
     main()
