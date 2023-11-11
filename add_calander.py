@@ -10,7 +10,7 @@ import re
 import logging
 
 source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
-CODE = "1515"
+# CODE = "1515"
 
 # スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -30,14 +30,14 @@ def get_settleInfo(CODE):
         return None, 'Exception error: access failed'
     
     # スクレイピング
-    #これは、HTML全体を示している
+    # これは、HTML全体を示している
     soup = BeautifulSoup(r.content, "html.parser")
     settleInfo = soup.find("div", class_="header_main").text
     settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
     settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
     settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
     logging.debug('settleInfo result = ' + settleInfo)  # logging
-    #、、で区切られた、文字列が返ってくる
+    # 、、で区切られた、文字列が返ってくる
     print(settleInfo)    
     if not settleInfo:
         settleInfo = 'not found'
