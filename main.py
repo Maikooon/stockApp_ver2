@@ -94,8 +94,8 @@ def handle_message(event, output_path):
     output = get_settleInfo(received_text) 
     result = transformStyle(output)
     saveFile(result, output_path)
-    readSchedule()
-    main()
+    # readSchedule()
+    # main()
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
@@ -137,19 +137,15 @@ def handle_message(event, output_path):
 #     saveFile(result, received_text)
 #     main()
 
-
-   
+ 
 # アプリの起動
-if __name__ == "__main__":
+if  __name__ == "__main__":
     # 初回のみデータベースのテーブル作成
     with get_connection() as conn:
         with conn.cursor() as cur:
             conn.autocommit = True
             cur.execute('CREATE TABLE IF NOT EXISTS users(user_id TEXT)')
     
-    # LINE botをフォローしているアカウントのうちランダムで一人にプッシュ通知
-    #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
     handle_message(output_path)
-### End

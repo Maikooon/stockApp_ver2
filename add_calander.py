@@ -10,7 +10,7 @@ import re
 import logging
 
 source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
-#CODE = "1720"
+CODE = "1720"
 
 # スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -80,7 +80,6 @@ def readSchedule():
     data1 = f.read()  
     lines1 = data1.split('\n') 
     f.close()
-    #print(f'決算日は: {lines1}です')
     return lines1
 
 
@@ -157,7 +156,6 @@ def main():
 # if __name__ == '__main__':
 #     output = get_settleInfo(CODE)
 #     result = transformStyle(output)
-#     #readSchedule()
-#     saveFile(result, CODE)
+#     saveFile(result, output_path)
 #     readSchedule()
 #     main()
