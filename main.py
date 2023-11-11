@@ -94,7 +94,7 @@ def handle_message(event):
     output = get_settleInfo(received_text) 
     #エラーはここで検知
     result = transformStyle(output)
-    if result.startswith("エラー"):
+    if result is not None and result.startswith("エラー"):
         print(result)
         return 
     saveFile(result, output_path)
