@@ -1,18 +1,18 @@
-from __future__ import print_function
+
 from flask import Flask, request, abort
 import requests, os
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEvent, UnfollowEvent
 import psycopg2
-import pickle
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-from bs4 import BeautifulSoup
-import re
-import logging
+
+
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
+# from bs4 import BeautifulSoup
+# import re
+#import logging
 from add_calander import get_settleInfo, transformStyle, saveFile, main
 
 
@@ -21,10 +21,6 @@ LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 DATABASE_URL = os.environ["DATABASE_URL"]
 HEROKU_APP_NAME = os.environ["HEROKU_APP_NAME"]
-# LINE_CHANNEL_ACCESS_TOKEN = "jBt7isMYFvFpW8Xw7CGaZXg8W/IyI+5q17yF+mk3PZxuvCCuju9JKy0GYrSnc1HLSf1zXvrEEfEhjqqK8lf0AG+r/NK4kk7qWtjDLE+o8YXfD9dpXbrKOXtZBRuCNuLAEJPnvBCCihJjowH+joxUhQdB04t89/1O/w1cDnyilFU="
-# LINE_CHANNEL_SECRET = "4df323f1a72448fd99f5f1587d936001"
-# DATABASE_URL = "postgres://ukkvjbsyupdoau:753eed248f3b1e40fd497edd77e76b7159e2d946e8307ab8bfcf90ab1c80184c@ec2-54-156-8-21.compute-1.amazonaws.com:5432/d57qcmlos2bntq"
-# HEROKU_APP_NAME = "stock-calander"
 
 
 app = Flask(__name__)
@@ -91,33 +87,8 @@ def handle_unfollow(event):
             cur.execute('DELETE FROM users WHERE user_id = %s', [event.source.user_id])
     print("userIdの削除OK!!")
 
-
-# ここから追加する
-# source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
-# CODE = "6758"
-
-
-# ファイルへの保存
-#こっちら使われているかもしれない、やばyばmm
-# def saveFile(result, CODE):
-#     output = get_settleInfo(CODE)
-#     result = transformStyle(output)
-#     with open('output.txt', 'w') as f:
-#         f.write(result)
-
-
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-
-
-# ここのテキストファイルを編集すればおk
-#こっちが使用されていなかったということ、
-# def readSchedule():
-#     f = open('output.txt')
-#     data1 = f.read()  
-#     lines1 = data1.split('\n') 
-#     f.close()
-#     return lines1
 
 
 # botにメッセージを送ったときの処理
@@ -136,6 +107,7 @@ def handle_message(event):
 
     # # Call the main function
     main()
+
 
 #ここからしたは変えない
     line_bot_api.reply_message(
