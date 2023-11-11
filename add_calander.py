@@ -76,6 +76,7 @@ def readSchedule():
     data1 = f.read()  
     lines1 = data1.split('\n') 
     f.close()
+    #print(f'決算日は: {lines1}です')
     return lines1
 
 
