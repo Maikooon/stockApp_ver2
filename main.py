@@ -108,14 +108,15 @@ def handle_message(event):
     # イベントのメッセージによって処理を変える
     if received_text.isdigit() and len(received_text) == 4:
         # 4桁の数字の場合
+        brand_code = event.message.text
         reply_text = "本当に追加しますか？"
     elif received_text == "":
         # 何も入力されていない場合
+        received_text = event.message.text
         reply_text = "証券コードを入力してください"
     elif received_text == "yes":
         # "Yes" が入力された場合
-        received_text = event.message.text
-        output = get_settleInfo(received_text) 
+        output = get_settleInfo(brand_code) 
         result = transformStyle(output)
         saveFile(result, output_path)
         readSchedule()
