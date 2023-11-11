@@ -92,9 +92,12 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 def handle_message(event):
     received_text = event.message.text
     output = get_settleInfo(received_text) 
+    #エラーはここで検知
     result = transformStyle(output)
+    if result.startswith("エラー"):
+        print(result)
+        return 
     saveFile(result, output_path)
-
     readSchedule()
     main()
     line_bot_api.reply_message(
