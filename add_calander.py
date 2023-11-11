@@ -52,7 +52,8 @@ def transformStyle(inputText):
     try:
         date = parts[7].strip()
     except IndexError:
-        return f"エラー: インデックスが範囲外です。詳細: {e}"
+        result = "エラー: インデックスが範囲外です。"
+        return 
     dateParts = date.split('/')
     if len(dateParts) != 3:
         return "日付の形式が正しくありません。"
