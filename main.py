@@ -89,7 +89,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 # botにメッセージを送ったときの処理, この関数の中身ごと変える必要があるのでは
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
+def handle_message(event, output_path):
     received_text = event.message.text
     
     # Call the function with the received text as an argument
@@ -160,5 +160,5 @@ if __name__ == "__main__":
     #push()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-    handle_message()
+    handle_message(output_path)
 ### End
