@@ -120,7 +120,7 @@ def handle_message(event):
         reply_text = "証券コードを入力してください"
     elif received_text.lower() == "yes":
         # "Yes" が入力された場合
-        output = get_settleInfo(received_text) 
+        output = get_settleInfo(event.message.text) 
         result = transformStyle(output)
         saveFile(result, output_path)
         readSchedule()
