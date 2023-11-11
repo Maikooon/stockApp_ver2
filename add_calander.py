@@ -12,7 +12,6 @@ import logging
 source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
 
 
-
 # 決算日取得関数 
 def get_settleInfo(CODE):
     # クローリング

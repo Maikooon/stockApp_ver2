@@ -133,7 +133,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text="カレンダーに追加しました"))
         print("返信完了!!\ntext:", event.message.text)
-        return
+
     #正しいコードが入力されたとき
     else:  
         line_bot_api.reply_message(
@@ -141,8 +141,10 @@ def handle_message(event):
             TextSendMessage(text="決算日は　日です、カレンダーに追加しますか"))
         print("返信完了!!\ntext:", event.message.text)
         return
-    
-    
+    output = get_settleInfo(received_text)
+    result = transformStyle(output)
+    saveFile(result, received_text)
+    main()
     
 # アプリの起動
 if __name__ == "__main__":
