@@ -111,9 +111,7 @@ def handle_message(event):
     print("返信完了!!\ntext:", event.message.text)
 
 
-
-#newversion
-
+# newversion
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
 #     #ここでメッセージをテキストに入れる
@@ -147,7 +145,9 @@ def handle_message(event):
 #     result = transformStyle(output)
 #     saveFile(result, received_text)
 #     main()
-    
+
+
+   
 # アプリの起動
 if __name__ == "__main__":
     # 初回のみデータベースのテーブル作成
