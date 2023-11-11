@@ -97,6 +97,14 @@ source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
 CODE = "6758"
 
 
+# ファイルへの保存
+def saveFile(result):
+    output = get_settleInfo(CODE)
+    result = transformStyle(output)
+    with open('output.txt', 'w') as f:
+        f.write(result)
+
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
