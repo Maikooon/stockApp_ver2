@@ -155,8 +155,8 @@ def main():
         print(event['id'])
 
 
-if __name__ == '__main__':
-    output = get_settleInfo(CODE)
-    result = transformStyle(output)
-    saveFile(result, CODE)
-    main()
+# if __name__ == '__main__':
+#     output = get_settleInfo(CODE)
+#     result = transformStyle(output)
+#     saveFile(result, CODE)
+#     main()
