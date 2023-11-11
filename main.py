@@ -109,6 +109,7 @@ def handle_message(event):
     # イベントのメッセージによって処理を変える
     if received_text.isdigit() and len(received_text) == 4:
         # 4桁の数字の場合
+        print(received_text)
         brand_code = received_text
         reply_text = "本当に追加しますか？"
     elif received_text == "":
@@ -118,6 +119,7 @@ def handle_message(event):
     elif received_text == "yes":
         # "Yes" が入力された場合
         print(brand_code)
+        print("aaaaaaaa")
         output = get_settleInfo(brand_code) 
         result = transformStyle(output)
         saveFile(result, output_path)
