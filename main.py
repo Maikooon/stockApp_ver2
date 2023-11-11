@@ -5,7 +5,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEvent, UnfollowEvent
 import psycopg2
-from add_calander import get_settleInfo, transformStyle, saveFile, readSchedule, main
+from add_calander import get_settleInfo, transformStyle, saveFile, readSchedule, main, script_dir, output_path
 
 
 # サンプルコードの11~14行目を以下のように書き換え
@@ -25,10 +25,7 @@ header = {
     "Content_Type": "application/json",
     "Authorization": "Bearer " + LINE_CHANNEL_ACCESS_TOKEN
 }
-
-# スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
-script_dir = os.path.dirname(os.path.abspath(__file__))
-output_path = os.path.join(script_dir, 'output.txt')   
+  
 
 @app.route("/")
 def hello_world():
