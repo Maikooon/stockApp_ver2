@@ -93,7 +93,9 @@ def handle_message(event, output_path):
     received_text = event.message.text
     output = get_settleInfo(received_text) 
     result = transformStyle(output)
+    print('まだ')
     saveFile(result, output_path)
+    print('保存おk')
     # readSchedule()
     # main()
     line_bot_api.reply_message(

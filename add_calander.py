@@ -61,6 +61,7 @@ def transformStyle(inputText):
     quarter = parts[5].strip()
     result = f"{formattedDate}\n{dateParts[2]} {title} {quarter}決算発表"
     print(result)
+    saveFile(result, output_path)
     return result
 
 
