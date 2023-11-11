@@ -48,7 +48,11 @@ def get_settleInfo(CODE):
 # できすと形式の変更
 def transformStyle(inputText):
     parts = inputText.split(',')
-    date = parts[7].strip()
+    #date = parts[7].strip()
+    try:
+        date = parts[7].strip()
+    except IndexError:
+        return "エラー: インデックスが範囲外です。"
     dateParts = date.split('/')
     if len(dateParts) != 3:
         return "日付の形式が正しくありません。"
