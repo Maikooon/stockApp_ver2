@@ -48,7 +48,7 @@ def get_settleInfo(CODE):
 # できすと形式の変更
 def transformStyle(inputText):
     parts = inputText.split(',')
-    #date = parts[7].strip()
+    # エラー処理
     try:
         date = parts[7].strip()
     except IndexError:

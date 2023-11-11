@@ -91,20 +91,11 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event, output_path):
     received_text = event.message.text
-    
-    # Call the function with the received text as an argument
-    output = get_settleInfo(received_text)
-    
-    # Transform the style  
+    output = get_settleInfo(received_text) 
     result = transformStyle(output)
-    
-    # # Save the result to a file
     saveFile(result, output_path)
     readSchedule()
-    # # Call the main function
     main()
-    
-#ここからしたは変えない
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
