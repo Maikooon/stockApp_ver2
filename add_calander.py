@@ -150,6 +150,7 @@ def main():
         }
         event = service.events().insert(calendarId='maiko02626@gmail.com',
                                         body=event).execute()
+        readSchedule()
         print(event['id'])
 
 
@@ -157,5 +158,4 @@ if __name__ == '__main__':
     output = get_settleInfo(CODE)
     result = transformStyle(output)
     saveFile(result, CODE)
-    readSchedule()
     main()
