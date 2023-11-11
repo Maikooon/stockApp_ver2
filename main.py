@@ -89,13 +89,12 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 # botにメッセージを送ったときの処理, この関数の中身ごと変える必要があるのでは
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event, output_path):
+def handle_message(event):
     received_text = event.message.text
     output = get_settleInfo(received_text) 
     result = transformStyle(output)
-    print('まだ')
     saveFile(result, output_path)
-    print('保存おk')
+
     readSchedule()
     main()
     line_bot_api.reply_message(
@@ -150,4 +149,4 @@ if  __name__ == "__main__":
     
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-    handle_message(output_path)
+    handle_message()
