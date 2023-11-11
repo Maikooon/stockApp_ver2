@@ -5,14 +5,6 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,  FollowEvent, UnfollowEvent
 import psycopg2
-
-
-# from googleapiclient.discovery import build
-# from google_auth_oauthlib.flow import InstalledAppFlow
-# from google.auth.transport.requests import Request
-# from bs4 import BeautifulSoup
-# import re
-#import logging
 from add_calander import get_settleInfo, transformStyle, saveFile, main
 
 
@@ -87,11 +79,12 @@ def handle_unfollow(event):
             cur.execute('DELETE FROM users WHERE user_id = %s', [event.source.user_id])
     print("userIdの削除OK!!")
 
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-# botにメッセージを送ったときの処理
+# botにメッセージを送ったときの処理, この関数の中身ごと変える必要があるのでは
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     received_text = event.message.text
@@ -99,14 +92,14 @@ def handle_message(event):
     # Call the function with the received text as an argument
     output = get_settleInfo(received_text)
     
-    # Transform the style  ここかも？？？？？
+    # Transform the style  
     result = transformStyle(output)
     
     # # Save the result to a file
     saveFile(result, received_text)
 
     # # Call the main function
-    main()
+    #main()
 
 
 #ここからしたは変えない
