@@ -52,7 +52,7 @@ def transformStyle(inputText):
     try:
         date = parts[7].strip()
     except IndexError:
-        return 
+        return "エラー: インデックスが範囲外です。"
     dateParts = date.split('/')
     if len(dateParts) != 3:
         return "日付の形式が正しくありません。"
@@ -60,6 +60,7 @@ def transformStyle(inputText):
     title = parts[1].strip()
     quarter = parts[5].strip()
     result = f"{formattedDate}\n{dateParts[2]} {title} {quarter}決算発表"
+    print(result)
     return result
 
 
@@ -155,6 +156,6 @@ def main():
 # if __name__ == '__main__':
 #     output = get_settleInfo(CODE)
 #     result = transformStyle(output)
-#     saveFile(result, output_path)
+#     saveFile(result, CODE)
 #     readSchedule()
 #     main()
