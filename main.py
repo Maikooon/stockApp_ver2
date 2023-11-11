@@ -104,6 +104,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     received_text = event.message.text
+    brand_code = ""
 
     # イベントのメッセージによって処理を変える
     if received_text.isdigit() and len(received_text) == 4:
