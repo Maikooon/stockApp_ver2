@@ -97,97 +97,17 @@ source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
 CODE = "6758"
 
 
-# ファイルへの保存
-def saveFile(result):
-    output = get_settleInfo(CODE)
-    result = transformStyle(output)
-    with open('output.txt', 'w') as f:
-        f.write(result)
-
-
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
 # ここのテキストファイルを編集すればおk
-def readSchedule():
-    f = open('output.txt')
-    data1 = f.read()  
-    lines1 = data1.split('\n') 
-    f.close()
-    return lines1
-
-
-# def main():
-#     creds = None
-#     if os.path.exists('token.pickle'):
-#         with open('token.pickle', 'rb') as token:
-#             creds = pickle.load(token)
-#     if not creds or not creds.valid:
-#         if creds and creds.expired and creds.refresh_token: 
-#             creds.refresh(Request())
-#         else:
-#             flow = InstalledAppFlow.from_client_secrets_file(
-#                 'credentials.json', SCOPES)
-#             creds = flow.run_local_server(port=0)
-#         with open('token.pickle', 'wb') as token:
-#             pickle.dump(creds, token)
-
-#     service = build('calendar', 'v3', credentials=creds)
-
-#     readSchedule()
-#     print(readSchedule())
-
-#     yearmon = readSchedule()[0]
-#     a = yearmon.split(".")
-#     year = int(a[0])
-#     mon = int(a[1])
-
-#     if mon == 1 or mon == 3 or mon == 5 or mon == 7 or mon == 8 or mon == 10 or mon == 12:
-#         num_days = 31
-#     elif mon == 2:
-#         num_days = 28
-#     else:
-#         num_days = 30
-#     for i in readSchedule():
-#         s = i.split(' ')
-#         if (len(s) == 1):
-#             continue
-        
-#         d_s = int(s[0])
-#         d_e = int(s[0])
-#         m_s = mon
-#         m_e = mon
-#         y_s = year
-#         y_e = year
-
-#         if (mon == 12 and d_e == 31):
-#             y_e = year + 1
-#         if (num_days == d_e):
-#             d_e = 1
-#             if mon == 12:
-#                 m_e = 1
-#             else:
-#                 m_e = m_e + 1
-
-#         event = {
-#             'summary': '{}'.format(s[1]),
-#             'location': 'Japan',
-#             'description': '{}'.format(s[2]),
-#             'start': {
-#                 'date': '{}-{}-{}'.format(y_s, m_s, d_s),
-#                 'timeZone': 'Japan',
-#             },
-#             'end': {
-#                 'date': '{}-{}-{}'.format(y_e, m_e, d_e),
-#                 'timeZone': 'Japan',
-#             },
-#         }
-#         event = service.events().insert(calendarId='maiko02626@gmail.com',
-#                                         body=event).execute()
-#         print(event['id'])
-
-
+# def readSchedule():
+#     f = open('output.txt')
+#     data1 = f.read()  
+#     lines1 = data1.split('\n') 
+#     f.close()
+#     return lines1
 
 
 # botにメッセージを送ったときの処理
