@@ -115,11 +115,7 @@ def handle_message(event):
         print("返信完了!!\ntext:", event.message.text)
         return
     elif received_text == "yes":  
-        output = get_settleInfo(received_text)
-        result = transformStyle(output)
-        saveFile(result, received_text)
-        readSchedule()
-        main()
+        
         #正しいコードが読み込まれたとき
         line_bot_api.reply_message(
             event.reply_token,
