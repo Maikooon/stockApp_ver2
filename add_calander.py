@@ -10,6 +10,11 @@ import re
 import logging
 
 source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
+CODE = "1515"
+
+# スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
+script_dir = os.path.dirname(os.path.abspath(__file__))
+output_path = os.path.join(script_dir, 'output.txt')   
 
 
 # 決算日取得関数 
@@ -18,19 +23,22 @@ def get_settleInfo(CODE):
     try:
         logging.debug('read web data cord = ' + CODE)  # logging
         r = requests.get(source + CODE)
+        print(r)
         
     except ValueError:
         logging.debug('read web data ---> Exception Error')  # vlogging
         return None, 'Exception error: access failed'
     
     # スクレイピング
+    #これは、HTML全体を示している
     soup = BeautifulSoup(r.content, "html.parser")
     settleInfo = soup.find("div", class_="header_main").text
     settleInfo = re.sub(r'[\n\t]+', ',', settleInfo)  # メタ文字の除去
     settleInfo = re.sub(r'(^,)|(,$)', '', settleInfo)  # 行頭行末のカンマ除去
     settleInfo = re.sub(r'[\xc2\xa0]', '', settleInfo)  # &nbsp(\xc2\xa0)問題の処置
     logging.debug('settleInfo result = ' + settleInfo)  # logging
-
+    #、、で区切られた、文字列が返ってくる
+    print(settleInfo)    
     if not settleInfo:
         settleInfo = 'not found'
 
@@ -48,14 +56,13 @@ def transformStyle(inputText):
     title = parts[1].strip()
     quarter = parts[5].strip()
     result = f"{formattedDate}\n{dateParts[2]} {title} {quarter}決算発表"
+    print(result)
     return result
 
 
 # ファイルへの保存
 def saveFile(result, CODE):
-    output = get_settleInfo(CODE)
-    result = transformStyle(output)
-    with open('output.txt', 'w') as f:
+    with open(output_path, 'w') as f:
         f.write(result)
 
 
@@ -65,7 +72,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 # ここのテキストファイルを編集すればおk
 def readSchedule():
-    f = open('output.txt')
+    f = open('./output.txt')
     data1 = f.read()  
     lines1 = data1.split('\n') 
     f.close()
@@ -142,3 +149,9 @@ def main():
         print(event['id'])
 
 
+if __name__ == '__main__':
+    output = get_settleInfo(CODE)
+    result = transformStyle(output)
+    readSchedule()
+    saveFile(result, CODE)
+    #main()
