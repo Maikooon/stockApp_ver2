@@ -96,8 +96,8 @@ def handle_message(event, output_path):
     print('まだ')
     saveFile(result, output_path)
     print('保存おk')
-    # readSchedule()
-    # main()
+    readSchedule()
+    main()
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
