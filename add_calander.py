@@ -52,7 +52,6 @@ def transformStyle(inputText):
     try:
         date = parts[7].strip()
     except IndexError:
-        result = "エラー: インデックスが範囲外です。"
         return 
     dateParts = date.split('/')
     if len(dateParts) != 3:
