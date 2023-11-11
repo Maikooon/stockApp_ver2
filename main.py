@@ -98,11 +98,12 @@ CODE = "6758"
 
 
 # ファイルへの保存
-def saveFile(result):
-    output = get_settleInfo(CODE)
-    result = transformStyle(output)
-    with open('output.txt', 'w') as f:
-        f.write(result)
+#こっちら使われているかもしれない、やばyばmm
+# def saveFile(result, CODE):
+#     output = get_settleInfo(CODE)
+#     result = transformStyle(output)
+#     with open('output.txt', 'w') as f:
+#         f.write(result)
 
 
 # If modifying these scopes, delete the file token.pickle.
@@ -110,6 +111,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
 # ここのテキストファイルを編集すればおk
+#こっちが使用されていなかったということ、
 # def readSchedule():
 #     f = open('output.txt')
 #     data1 = f.read()  
@@ -130,7 +132,7 @@ def handle_message(event):
     result = transformStyle(output)
     
     # # Save the result to a file
-    saveFile(result)
+    saveFile(result, CODE)
 
     # # Call the main function
     main()

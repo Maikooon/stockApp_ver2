@@ -53,7 +53,7 @@ def transformStyle(inputText):
 
 
 # ファイルへの保存
-def saveFile(result):
+def saveFile(result, CODE):
     output = get_settleInfo(CODE)
     result = transformStyle(output)
     with open('output.txt', 'w') as f:
