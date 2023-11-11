@@ -87,55 +87,56 @@ def handle_unfollow(event):
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-# botにメッセージを送ったときの処理, この関数の中身ごと変える必要があるのでは
+# botにメッセージを送ったときの処理, これだとおk
+@handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     received_text = event.message.text
+#     output = get_settleInfo(received_text) 
+#     result = transformStyle(output)
+#     saveFile(result, output_path)
+#     readSchedule()
+#     main()
+#     line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text=event.message.text))
+#     print("返信完了!!\ntext:", event.message.text)
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     received_text = event.message.text
-    output = get_settleInfo(received_text) 
-    result = transformStyle(output)
-    saveFile(result, output_path)
-    readSchedule()
-    main()
+    # output = get_settleInfo(received_text) 
+    # result = transformStyle(output)
+    # saveFile(result, output_path)
+    # readSchedule()
+    # main()
+
+    # イベントのメッセージによって処理を変える
+    if received_text.isdigit() and len(received_text) == 4:
+        # 4桁の数字の場合
+        reply_text = "本当に追加しますか？"
+    elif received_text == "":
+        # 何も入力されていない場合
+        reply_text = "証券コードを入力してください"
+    elif received_text.lower() == "yes":
+        # "Yes" が入力された場合
+        output = get_settleInfo(received_text) 
+        result = transformStyle(output)
+        saveFile(result, output_path)
+        readSchedule()
+        main()
+        # カレンダーに追加する処理を書く（未実装）
+        reply_text = "カレンダーに追加しました"
+    else:
+        # 上記条件以外の場合
+        reply_text = "入力が不明です"
+
     line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=event.message.text))
-    print("返信完了!!\ntext:", event.message.text)
+        event.reply_token,
+        TextSendMessage(text=reply_text)
+    )
 
-
-# newversion
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-#     #ここでメッセージをテキストに入れる
-#     received_text = event.message.text
-#     #カレンダーに追加するのは、４桁の数字が入力された時のみ、それ以外は誘導する
-#     if received_text == "accounts":
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text="please enter the code of stock brand"))
-#         print("返信完了!!\ntext:", event.message.text)
-#         return
-#     elif received_text == "yes":  
-#         # output = get_settleInfo(received_text)
-#         # result = transformStyle(output)
-#         # saveFile(result, received_text)
-#         # main()
-#         #正しいコードが読み込まれたとき
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text="カレンダーに追加しました"))
-#         print("返信完了!!\ntext:", event.message.text)
-
-#     #正しいコードが入力されたとき
-#     else:  
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text="決算日は　日です、カレンダーに追加しますか"))
-#         print("返信完了!!\ntext:", event.message.text)
-#         return
-#     output = get_settleInfo(received_text)
-#     result = transformStyle(output)
-#     saveFile(result, received_text)
-#     main()
+    print("返信完了!!\ntext:", received_text)
 
  
 # アプリの起動
