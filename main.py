@@ -96,7 +96,7 @@ def handle_message(event):
     result = transformStyle(output)
     
     # # Save the result to a file
-    saveFile(result, received_text)
+    saveFile(result, output_path)
     readSchedule()
     # # Call the main function
     main()

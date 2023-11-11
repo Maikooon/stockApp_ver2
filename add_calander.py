@@ -61,7 +61,7 @@ def transformStyle(inputText):
 
 
 # ファイルへの保存
-def saveFile(result, CODE):
+def saveFile(result, output_path):
     with open(output_path, 'w') as f:
         f.write(result)
 
