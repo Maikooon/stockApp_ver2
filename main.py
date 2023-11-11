@@ -26,6 +26,9 @@ header = {
     "Authorization": "Bearer " + LINE_CHANNEL_ACCESS_TOKEN
 }
 
+# スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
+script_dir = os.path.dirname(os.path.abspath(__file__))
+output_path = os.path.join(script_dir, 'output.txt')   
 
 @app.route("/")
 def hello_world():
@@ -100,8 +103,6 @@ def handle_message(event):
 
     # # Call the main function
     main()
-
-
 #ここからしたは変えない
     line_bot_api.reply_message(
         event.reply_token,
