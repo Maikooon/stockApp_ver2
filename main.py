@@ -101,16 +101,16 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 #             TextSendMessage(text=event.message.text))
 #     print("返信完了!!\ntext:", event.message.text)
 
+CODE = "0"
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     received_text = event.message.text
-    brand_code = ""
 
     # イベントのメッセージによって処理を変える
     if received_text.isdigit() and len(received_text) == 4:
         # 4桁の数字の場合
         print(received_text)
-        brand_code = received_text
+        CODE = received_text
         reply_text = "本当に追加しますか？"
     elif received_text == "":
         # 何も入力されていない場合
@@ -118,15 +118,17 @@ def handle_message(event):
         reply_text = "証券コードを入力してください"
     elif received_text == "yes":
         # "Yes" が入力された場合
-        print(brand_code)
+        print(CODE)
         print("aaaaaaaa")
-        output = get_settleInfo(brand_code) 
-        result = transformStyle(output)
-        saveFile(result, output_path)
-        readSchedule()
-        main()  # 必要に応じてコメントアウトを解除
-        # カレンダーに追加する処理を書く（未実装）
-        reply_text = "カレンダーに追加しました"
+        if len(CODE) == 4:
+            output = get_settleInfo(CODE) 
+            result = transformStyle(output)
+            saveFile(result, output_path)
+            readSchedule()
+            main()  # 必要に応じてコメントアウトを解除
+            reply_text = "カレンダーに追加しました"
+        else:
+            reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     else:
         # 上記条件以外の場合
         reply_text = "入力が不明です"
