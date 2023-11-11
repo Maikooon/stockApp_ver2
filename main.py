@@ -104,6 +104,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 CODE = "0"
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    global CODE
     received_text = event.message.text
 
     # イベントのメッセージによって処理を変える
@@ -125,12 +126,11 @@ def handle_message(event):
             result = transformStyle(output)
             saveFile(result, output_path)
             readSchedule()
-            main()  # 必要に応じてコメントアウトを解除
+            main()  
             reply_text = "カレンダーに追加しました"
         else:
             reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     else:
-        # 上記条件以外の場合
         reply_text = "入力が不明です"
 
     line_bot_api.reply_message(
