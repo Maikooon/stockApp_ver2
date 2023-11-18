@@ -5,7 +5,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, FollowEve
 import os
 import psycopg2
 #from add_calander import get_settle_info
-#from add_calander import get_settle_info, transform_style, save_file, read_schedule, main, output_path
+from add_calander import get_settle_info, transform_style, save_file, read_schedule, main, output_path
 
 app = Flask(__name__)
 
@@ -91,8 +91,9 @@ def handle_message(event):
 
     if received_text.isdigit() and len(received_text) == 4:
         CODE = received_text
-        reply_text = "本当に追加しますか？"
-    elif received_text == "":
+        reply_text = "本当に追加しますか？"    
+        #無視したらここまではくる、おk
+    elif received_text == "q":
         received_text = event.message.text
         reply_text = "証券コードを入力してください"
     elif received_text == "yes":
