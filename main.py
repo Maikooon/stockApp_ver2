@@ -5,7 +5,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, FollowEve
 import os
 import psycopg2
 #from add_calander import get_settle_info
-from add_calander import get_settle_info, transform_style, save_file, read_schedule, main, output_path
+#from add_calander import get_settle_info, transform_style, save_file, read_schedule, main, output_path
 
 app = Flask(__name__)
 
