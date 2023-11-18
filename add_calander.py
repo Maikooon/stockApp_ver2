@@ -10,7 +10,7 @@ import re
 import logging
 
 source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
-# CODE = "1515"
+CODE = "1515"
 
 # スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -155,8 +155,8 @@ def main():
         print(event['id'])
 
 
-# if __name__ == '__main__':
-#     output = get_settleInfo(CODE)
-#     result = transformStyle(output)
-#     saveFile(result, CODE)
-#     main()
+if __name__ == '__main__':
+    output = get_settleInfo(CODE)
+    result = transformStyle(output)
+    saveFile(result, CODE)
+    main()
