@@ -46,17 +46,6 @@ def callback():
         abort(400)
     return "OK"
 
-# @app.route("/callback", methods=["POST"])
-# def callback():
-#     signature = request.headers.get("X-Line-Signature")
-#     body = request.get_data(as_text=True)
-#     app.logger.info("Request body: " + body)
-#     try:
-#         handler.handle(body, signature)
-#     except InvalidSignatureError:
-#         abort(400)
-#     return "OK"
-
 
 # LINE Bot Events
 @handler.add(FollowEvent)
@@ -95,7 +84,8 @@ def handle_message(event):
             output = get_settle_info(CODE) 
             result = transformStyle(output)
             saveFile(result, output_path)
-            readSchedule()
+            line = readSchedule()
+            print(line)
             #ここにほかの証券情報も入れて返したい。社名、
             reply_text = "本当に追加しますか？"    
         else:
