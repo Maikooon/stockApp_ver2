@@ -30,31 +30,32 @@ def get_connection():
 def hello_world():
     return "hello world!"
 
-# # アプリにPOSTがあったときの処理
-# @app.route("/callback", methods=["POST"])
-# def callback():
-#     # get X-Line-Signature header value
-#     signature = request.headers["X-Line-Signature"]
-#     # get request body as text
-#     body = request.get_data(as_text=True)
-#     app.logger.info("Request body: " + body)
-#     # handle webhook body
-#     try:
-#         handler.handle(body, signature)
-#     except InvalidSignatureError:
-#         abort(400)
-#     return "OK"
 
+# アプリにPOSTがあったときの処理
 @app.route("/callback", methods=["POST"])
 def callback():
-    signature = request.headers.get("X-Line-Signature")
+    # get X-Line-Signature header value
+    signature = request.headers["X-Line-Signature"]
+    # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
+    # handle webhook body
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
     return "OK"
+
+# @app.route("/callback", methods=["POST"])
+# def callback():
+#     signature = request.headers.get("X-Line-Signature")
+#     body = request.get_data(as_text=True)
+#     app.logger.info("Request body: " + body)
+#     try:
+#         handler.handle(body, signature)
+#     except InvalidSignatureError:
+#         abort(400)
+#     return "OK"
 
 
 # LINE Bot Events
@@ -91,8 +92,7 @@ def handle_message(event):
     if received_text.isdigit() and len(received_text) == 4:
         CODE = received_text
         reply_text = "本当に追加しますか？"    
-        #無視したらここまではくる、おk
-    elif received_text == "q":
+    elif received_text == "決算日をカレンダーに追加したい":
         received_text = event.message.text
         reply_text = "証券コードを入力してください"
     elif received_text == "yes":
@@ -106,6 +106,7 @@ def handle_message(event):
         else:
             reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     else:
+        print(received_text)
         reply_text = "入力が不明です"
 
     line_bot_api.reply_message(
