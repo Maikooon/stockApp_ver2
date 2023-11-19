@@ -90,23 +90,26 @@ def handle_message(event):
     received_text = event.message.text
 
     if received_text.isdigit() and len(received_text) == 4:
-        CODE = received_text
-        output = get_settle_info(CODE) 
-        result = transformStyle(output)
-        saveFile(result, output_path)
-        readSchedule()
-        #ここにほかの証券情報も入れて返したい。社名、
-        reply_text = "本当に追加しますか？"    
+        if len(CODE) == 4:
+            CODE = received_text
+            output = get_settle_info(CODE) 
+            result = transformStyle(output)
+            saveFile(result, output_path)
+            readSchedule()
+            #ここにほかの証券情報も入れて返したい。社名、
+            reply_text = "本当に追加しますか？"    
+        else:
+            reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     elif received_text == "決算日をカレンダーに追加したい":
         received_text = event.message.text
         reply_text = "証券コードを入力してください"
     elif received_text == "yes":
-        if len(CODE) == 4:
+        # if len(CODE) == 4:
             
-            main()
-            reply_text = "カレンダーに追加しました"
-        else:
-            reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
+        #     main()
+        reply_text = "カレンダーに追加しました"
+        # else:
+        #     reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     else:
         #print(received_text)
         reply_text = "入力が不明です"
