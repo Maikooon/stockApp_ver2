@@ -88,16 +88,18 @@ def handle_message(event):
             print('b')
             saveFile(result, output_path)
             print('aaaaaaaa')
-            
-            words = result.split()  # ['2023.11', '09', 'ソニーグループ', '2Q決算発表']
-            company_name = ' '.join(words[2:-1])  # 'ソニーグループ'
-
-            # 文字列から日付情報を抽出
-            date_string = words[0]  # '2023.11'
+            # 文字列から企業名と日付情報を抽出
+            lines = result.split('\n')
+            date_string = lines[0]  # '2023.11'
             date_object = datetime.strptime(date_string, "%Y.%m")
+    
+            # 企業名を抽出する部分が '09 ソニーグループ 2Q決算発表' のような形式の場合
+            company_info = lines[1].split()  # ['09', 'ソニーグループ', '2Q決算発表']
+            company_name = ' '.join(company_info[1:-1])  # 'ソニーグループ'
 
             # ここで reply_text を構築
-            reply_text = f"企業: {company_name}\n決算日: {date_object.strftime('%B %d日')}\n本当に追加しますか？"   
+            reply_text = f"企業: {company_name}\n決算日: {date_object.strftime('%B %d日')}\n本当に追加しますか？"
+
         else:
             reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     elif received_text == "決算日をカレンダーに追加したい":
