@@ -4,7 +4,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, FollowEvent, UnfollowEvent
 import os
 import psycopg2
-from add_calendar import get_settle_info, transformStyle, saveFile, readSchedule, main
+from add_calendar import get_settle_info, transformStyle, saveFile, readSchedule, main,output_path
 
 app = Flask(__name__)
 
@@ -18,10 +18,6 @@ CODE = "0"
 # LINE Bot API Setup
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
-
-# スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
-script_dir = os.path.dirname(os.path.abspath(__file__))
-output_path = os.path.join(script_dir, './output.txt') 
 
 
 # Database Connection Function
