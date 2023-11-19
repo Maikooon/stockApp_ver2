@@ -4,7 +4,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, FollowEvent, UnfollowEvent
 import os
 import psycopg2
-from add_calendar import get_settle_info, transform_style, save_file, read_schedule, main, output_path
+from add_calendar import get_settle_info, transformStyle, saveFile, readSchedule, main, output_path
 
 app = Flask(__name__)
 
@@ -98,9 +98,9 @@ def handle_message(event):
     elif received_text == "yes":
         if len(CODE) == 4:
             output = get_settle_info(CODE) 
-            result = transform_style(output)
-            save_file(result, output_path)
-            read_schedule()
+            result = transformStyle(output)
+            saveFile(result, output_path)
+            readSchedule()
             main()
             reply_text = "カレンダーに追加しました"
         else:
