@@ -82,10 +82,10 @@ def handle_message(event):
         CODE = received_text
         if len(CODE) == 4:   
             output = get_settle_info(CODE) 
+            print('a')
             result = transformStyle(output)
+            print('b')
             saveFile(result, output_path)
-            #line = readSchedule()
-            #print(line)  [sony,,,,,,]
             print('aaaaaaaa')
             #ここにほかの証券情報も入れて返したい。社名、
             reply_text = "本当に追加しますか？"    
