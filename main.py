@@ -90,8 +90,8 @@ def handle_message(event):
     received_text = event.message.text
 
     if received_text.isdigit() and len(received_text) == 4:
-        if len(CODE) == 4:
-            CODE = received_text
+        CODE = received_text
+        if len(CODE) == 4:   
             output = get_settle_info(CODE) 
             result = transformStyle(output)
             saveFile(result, output_path)
