@@ -15,7 +15,7 @@ source = 'https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_top&bcode='
 
 # スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
 script_dir = os.path.dirname(os.path.abspath(__file__))
-output_path = os.path.join(script_dir, './output.txt') 
+output_path = os.path.join(script_dir, 'output.txt') 
 
 
 # 決算日取得関数 
