@@ -21,7 +21,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 # スクリプトのディレクトリを取得 パスを指定hしないとファイルが生成されなかった
 script_dir = os.path.dirname(os.path.abspath(__file__))
-output_path = os.path.join(script_dir, 'output.txt') 
+output_path = os.path.join(script_dir, './output.txt') 
 
 
 # Database Connection Function
