@@ -88,7 +88,8 @@ def handle_message(event):
             saveFile(result, output_path)
             print('aaaaaaaa')
             #ここにほかの証券情報も入れて返したい。社名、
-            reply_text = "本当に追加しますか？"    
+            reply_text = f"追加された情報: {result}"  # この行を適切な形式に変更する
+            reply_text += "本当に追加しますか？"    
         else:
             reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     elif received_text == "決算日をカレンダーに追加したい":
