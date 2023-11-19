@@ -19,7 +19,7 @@ output_path = os.path.join(script_dir, 'output.txt')
 
 
 # 決算日取得関数 
-def get_settleInfo(CODE):
+def get_settle_info(CODE):
     # クローリング
     try:
         logging.debug('read web data cord = ' + CODE)  # logging
