@@ -86,6 +86,7 @@ def handle_message(event):
             saveFile(result, output_path)
             line = readSchedule()
             print(line)
+            print('aaaaaaaa')
             #ここにほかの証券情報も入れて返したい。社名、
             reply_text = "本当に追加しますか？"    
         else:
