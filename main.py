@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -87,9 +88,16 @@ def handle_message(event):
             print('b')
             saveFile(result, output_path)
             print('aaaaaaaa')
-            #ここにほかの証券情報も入れて返したい。社名、
-            reply_text = f"追加された情報: {result}"  # この行を適切な形式に変更する
-            reply_text += "本当に追加しますか？"    
+            
+            words = result.split()  # ['2023.11', '09', 'ソニーグループ', '2Q決算発表']
+            company_name = ' '.join(words[2:-1])  # 'ソニーグループ'
+
+            # 文字列から日付情報を抽出
+            date_string = words[0]  # '2023.11'
+            date_object = datetime.strptime(date_string, "%Y.%m")
+
+            # ここで reply_text を構築
+            reply_text = f"企業: {company_name}\n決算日: {date_object.strftime('%B %d日')}\n本当に追加しますか？"   
         else:
             reply_text = "証券コードが正しくありません。4桁の数字を入力してください。"
     elif received_text == "決算日をカレンダーに追加したい":
